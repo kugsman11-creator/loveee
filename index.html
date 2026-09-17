@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>For You — J × B</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#090909;
+  --bg2:#101010;
+  --card:#151515;
+  --text:#f3efeb;
+  --muted:#8d8884;
+  --line:rgba(255,255,255,.11);
+  --soft:rgba(255,255,255,.045);
+  --rose:#b88b95;
+  --cream:#d8c8bb;
+  --max:1180px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+body.locked{
+  overflow:hidden;
+}
+
+button{
+  font:inherit;
+}
+
+img{
+  display:block;
+  width:100%;
+}
+
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:2px;
+  width:0;
+  background:var(--rose);
+  z-index:9999;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  background:#080808;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:1.2s ease;
+}
+
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-inner{
+  width:min(90%,650px);
+  text-align:center;
+}
+
+.intro-label{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:4px;
+  margin-bottom:32px;
+}
+
+.intro-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(60px,13vw,125px);
+  line-height:.88;
+}
+
+.intro-title em{
+  color:var(--cream);
+}
+
+.intro-copy{
+  max-width:390px;
+  margin:35px auto 45px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+.enter{
+  background:none;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:15px 28px;
+  font-size:9px;
+  letter-spacing:3px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.enter:hover{
+  background:#fff;
+  color:#000;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  padding:20px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(to bottom,rgba(9,9,9,.9),transparent);
+}
+
+.logo{
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.nav-right{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.nav-btn{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  cursor:pointer;
+  font-size:10px;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+section{
+  width:min(calc(100% - 48px),var(--max));
+  margin:auto;
+}
+
+.section{
+  padding:150px 0;
+}
+
+.eyebrow{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:3px;
+  margin-bottom:24px;
+}
+
+.big-title{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:clamp(45px,7vw,85px);
+  line-height:1;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(35px);
+  transition:1s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  width:100%;
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  padding:0 6vw 9vh;
+  overflow:hidden;
+}
+
+.hero-image{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+}
+
+.hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.5) saturate(.7);
+  transform:scale(1.04);
+  animation:heroZoom 10s ease forwards;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(to top,#090909 0%,rgba(9,9,9,.2) 55%,rgba(0,0,0,.25)),
+    linear-gradient(to right,rgba(0,0,0,.4),transparent);
+}
+
+.hero-content{
+  max-width:900px;
+}
+
+.hero-date{
+  color:#b8afaa;
+  font-size:9px;
+  letter-spacing:3px;
+  margin-bottom:25px;
+}
+
+.hero h1{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:clamp(65px,12vw,150px);
+  line-height:.85;
+}
+
+.hero h1 em{
+  color:var(--cream);
+  display:block;
+}
+
+.hero-bottom{
+  margin-top:40px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.hero-line{
+  width:65px;
+  height:1px;
+  background:var(--line);
+}
+
+@keyframes heroZoom{
+  from{transform:scale(1.04)}
+  to{transform:scale(1)}
+}
+
+/* =========================
+   STATEMENT
+========================= */
+
+.statement{
+  min-height:75vh;
+  display:flex;
+  align-items:center;
+}
+
+.statement-text{
+  max-width:950px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(40px,6.5vw,75px);
+  line-height:1.1;
+  color:#ddd6d0;
+}
+
+.statement-text span{
+  color:#68625f;
+}
+
+.statement-note{
+  max-width:430px;
+  margin-top:45px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline{
+  margin-top:75px;
+  border-top:1px solid var(--line);
+}
+
+.timeline-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:60px;
+  padding:50px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.timeline-date{
+  color:var(--rose);
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.timeline-title{
+  font-family:"Playfair Display",serif;
+  font-size:32px;
+  margin-bottom:14px;
+}
+
+.timeline-text{
+  max-width:600px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-grid{
+  margin-top:80px;
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:100px;
+}
+
+.letter-heading{
+  position:sticky;
+  top:110px;
+}
+
+.letter-heading h3{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:45px;
+  line-height:1;
+}
+
+.letter{
+  border-left:1px solid var(--line);
+  padding-left:45px;
+}
+
+.letter p{
+  font-family:"Playfair Display",serif;
+  color:#c2bbb6;
+  font-size:19px;
+  line-height:1.9;
+  margin-bottom:24px;
+}
+
+.signature{
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  color:var(--cream);
+  font-size:25px;
+  margin-top:45px;
+}
+
+/* =========================
+   ARCHIVE
+========================= */
+
+.archive-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:55px;
+}
+
+.archive-info{
+  max-width:220px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.8;
+  text-align:right;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+
+.photo{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  background:#151515;
+}
+
+.photo img{
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.78);
+  transition:.8s cubic-bezier(.2,.7,.2,1);
+}
+
+.photo:hover img{
+  transform:scale(1.05);
+  filter:saturate(1);
+}
+
+.photo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.08);
+  pointer-events:none;
+}
+
+.photo:nth-child(1){
+  grid-column:span 7;
+  height:600px;
+}
+
+.photo:nth-child(2){
+  grid-column:span 5;
+  height:430px;
+}
+
+.photo:nth-child(3){
+  grid-column:span 5;
+  height:520px;
+  margin-top:-150px;
+}
+
+.photo:nth-child(4){
+  grid-column:span 7;
+  height:550px;
+}
+
+.photo:nth-child(5),
+.photo:nth-child(6),
+.photo:nth-child(7){
+  grid-column:span 4;
+  height:470px;
+}
+
+.frame{
+  position:absolute;
+  left:18px;
+  bottom:16px;
+  color:#fff;
+  font-size:8px;
+  letter-spacing:2px;
+  text-shadow:0 2px 10px #000;
+  z-index:2;
+}
+
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+.viewer-modal{
+  position:fixed;
+  inset:0;
+  z-index:7000;
+  background:rgba(3,3,3,.98);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+}
+
+.viewer-modal.active{
+  display:flex;
+}
+
+.viewer{
+  width:min(1000px,100%);
+  height:90vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.viewer img{
+  max-width:90%;
+  max-height:82vh;
+  width:auto;
+  object-fit:contain;
+}
+
+.viewer-close{
+  position:absolute;
+  top:-5px;
+  right:0;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+.viewer-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.5);
+  color:#fff;
+  cursor:pointer;
+}
+
+.viewer-prev{left:0}
+.viewer-next{right:0}
+
+.viewer-caption{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:3px;
+}
+
+/* =========================
+   DETAIL
+========================= */
+
+.detail{
+  min-height:70vh;
+  display:flex;
+  align-items:center;
+}
+
+.detail-inner{
+  max-width:900px;
+}
+
+.detail-number{
+  color:var(--rose);
+  font-size:9px;
+  letter-spacing:3px;
+  margin-bottom:30px;
+}
+
+.detail-text{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(45px,7vw,82px);
+  line-height:1.05;
+  min-height:190px;
+}
+
+.detail-next{
+  margin-top:40px;
+  border:1px solid var(--line);
+  background:none;
+  color:#fff;
+  padding:13px 24px;
+  font-size:9px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+/* =========================
+   CONVERSATION
+========================= */
+
+.conversation-wrap{
+  margin-top:70px;
+  max-width:600px;
+}
+
+.chat{
+  background:#101010;
+  border:1px solid var(--line);
+  padding:35px;
+}
+
+.chat-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding-bottom:25px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:30px;
+}
+
+.chat-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#8ca58c;
+}
+
+.chat-name{
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.message{
+  max-width:80%;
+  padding:12px 15px;
+  margin:13px 0;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.message.you{
+  margin-left:auto;
+  background:#252525;
+}
+
+.message.her{
+  background:#171717;
+  border:1px solid var(--line);
+}
+
+.chat-controls{
+  margin-top:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chat-counter{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.chat-next{
+  border:1px solid var(--line);
+  background:none;
+  color:#fff;
+  padding:11px 18px;
+  font-size:9px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+.soundtrack{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border:1px solid var(--line);
+}
+
+.sound-left{
+  min-height:560px;
+  padding:55px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.sound-label{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.song{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(60px,8vw,95px);
+  line-height:.85;
+}
+
+.song em{
+  color:var(--cream);
+}
+
+.song-info{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  max-width:330px;
+}
+
+.play{
+  width:62px;
+  height:62px;
+  margin-top:25px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+.visualizer{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  height:35px;
+  margin-top:20px;
+}
+
+.bar{
+  width:2px;
+  height:6px;
+  background:#bba3a7;
+  transition:.2s;
+}
+
+.visualizer.playing .bar{
+  animation:wave .7s ease-in-out infinite alternate;
+}
+
+.bar:nth-child(2){animation-delay:.1s}
+.bar:nth-child(3){animation-delay:.2s}
+.bar:nth-child(4){animation-delay:.3s}
+.bar:nth-child(5){animation-delay:.15s}
+.bar:nth-child(6){animation-delay:.25s}
+.bar:nth-child(7){animation-delay:.05s}
+.bar:nth-child(8){animation-delay:.2s}
+
+@keyframes wave{
+  from{height:5px}
+  to{height:28px}
+}
+
+.sound-right{
+  overflow:hidden;
+}
+
+.sound-right img{
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.52) saturate(.7);
+}
+
+/* =========================
+   LATE NIGHT
+========================= */
+
+.late{
+  width:100%;
+  background:#0e0e0e;
+  padding:150px 0;
+}
+
+.late-inner{
+  width:min(calc(100% - 48px),var(--max));
+  margin:auto;
+}
+
+.late-content{
+  max-width:800px;
+}
+
+.late-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,8vw,95px);
+  line-height:.95;
+}
+
+.late-title em{
+  color:var(--cream);
+}
+
+.late-text{
+  max-width:480px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+  margin-top:35px;
+}
+
+.late-button{
+  margin-top:35px;
+  padding:14px 24px;
+  border:1px solid var(--line);
+  background:none;
+  color:#fff;
+  font-size:9px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+.late-message{
+  display:none;
+  margin-top:55px;
+  max-width:700px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:45px 0;
+}
+
+.late-message.show{
+  display:block;
+  animation:fadeUp .8s ease;
+}
+
+.late-message p{
+  font-family:"Playfair Display",serif;
+  color:#c7bfba;
+  font-size:22px;
+  line-height:1.8;
+}
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter{
+  text-align:center;
+}
+
+.counter-grid{
+  margin:70px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  max-width:900px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.counter-item{
+  padding:45px 15px;
+  border-right:1px solid var(--line);
+}
+
+.counter-item:last-child{
+  border-right:0;
+}
+
+.counter-number{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(40px,6vw,65px);
+}
+
+.counter-label{
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px;
+  margin-top:8px;
+}
+
+/* =========================
+   SECRET
+========================= */
+
+.secret-section{
+  text-align:center;
+}
+
+.lock{
+  width:90px;
+  height:90px;
+  margin:60px auto 30px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  cursor:pointer;
+  transition:.4s;
+}
+
+.lock:hover{
+  border-color:var(--rose);
+  transform:scale(1.04);
+}
+
+.secret-hint{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.8;
+}
+
+.secret-box{
+  display:none;
+  max-width:550px;
+  margin:50px auto 0;
+}
+
+.secret-box.show{
+  display:block;
+  animation:fadeUp .7s ease;
+}
+
+.code-input{
+  width:100%;
+  background:#111;
+  border:1px solid var(--line);
+  color:#fff;
+  padding:16px;
+  text-align:center;
+  letter-spacing:7px;
+  outline:none;
+}
+
+.unlock{
+  margin-top:12px;
+  padding:14px 25px;
+  background:none;
+  border:1px solid var(--line);
+  color:#fff;
+  font-size:9px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+
+.secret-result{
+  display:none;
+  margin-top:35px;
+  border:1px solid var(--line);
+  padding:35px;
+  text-align:left;
+}
+
+.secret-result.show{
+  display:block;
+  animation:fadeUp .7s ease;
+}
+
+.secret-result img{
+  height:300px;
+  object-fit:cover;
+  margin-bottom:25px;
+}
+
+.secret-result p{
+  font-family:"Playfair Display",serif;
+  font-size:22px;
+  line-height:1.6;
+}
+
+/* =========================
+   FUTURE LETTER
+========================= */
+
+.future{
+  width:100%;
+  padding:150px 0;
+  background:#0b0b0b;
+  text-align:center;
+}
+
+.future-inner{
+  width:min(calc(100% - 48px),var(--max));
+  margin:auto;
+}
+
+.envelope{
+  width:min(500px,100%);
+  margin:70px auto 0;
+  padding:75px 30px;
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.5s;
+  background:
+    linear-gradient(45deg,transparent 49.8%,rgba(255,255,255,.05) 50%,transparent 50.2%),
+    linear-gradient(-45deg,transparent 49.8%,rgba(255,255,255,.05) 50%,transparent 50.2%);
+}
+
+.envelope:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,255,255,.25);
+}
+
+.envelope-symbol{
+  font-size:30px;
+  margin-bottom:25px;
+}
+
+.envelope-label{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.future-letter{
+  display:none;
+  max-width:700px;
+  margin:70px auto 0;
+  text-align:left;
+}
+
+.future-letter.show{
+  display:block;
+  animation:fadeUp .8s ease;
+}
+
+.future-date{
+  color:var(--rose);
+  font-size:9px;
+  letter-spacing:3px;
+  margin-bottom:30px;
+}
+
+.future-letter p{
+  font-family:"Playfair Display",serif;
+  font-size:21px;
+  color:#c8c0bb;
+  line-height:1.9;
+  margin-bottom:22px;
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question{
+  text-align:center;
+}
+
+.question-sub{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  max-width:400px;
+  margin:25px auto 55px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  max-width:850px;
+  margin:auto;
+}
+
+.answer{
+  min-height:145px;
+  border:1px solid var(--line);
+  background:var(--soft);
+  color:#ddd;
+  padding:25px;
+  cursor:pointer;
+  transition:.35s;
+}
+
+.answer:hover{
+  background:#181818;
+  border-color:rgba(255,255,255,.25);
+}
+
+.answer span{
+  display:block;
+  color:var(--rose);
+  font-size:9px;
+  letter-spacing:2px;
+  margin-bottom:25px;
+}
+
+.answer-result{
+  display:none;
+  max-width:600px;
+  margin:45px auto 0;
+  padding:35px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  font-family:"Playfair Display",serif;
+  font-size:22px;
+  line-height:1.7;
+}
+
+.answer-result.show{
+  display:block;
+  animation:fadeUp .7s ease;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final{
+  min-height:100vh;
+  width:100%;
+  background:#050505;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 20px;
+}
+
+.final-inner{
+  max-width:900px;
+}
+
+.final-label{
+  color:#5e5a57;
+  font-size:9px;
+  letter-spacing:4px;
+  margin-bottom:35px;
+}
+
+.final-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(55px,10vw,115px);
+  line-height:.9;
+  font-weight:400;
+}
+
+.final-title em{
+  color:var(--cream);
+}
+
+.final-pause{
+  margin-top:60px;
+  color:#5e5a57;
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.chapter{
+  margin-top:20px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:1.2s ease;
+}
+
+.chapter.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.chapter-text{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(35px,6vw,60px);
+}
+
+.final-image{
+  width:min(370px,75vw);
+  height:480px;
+  margin:60px auto 0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(30px);
+  transition:1.5s ease;
+}
+
+.final-image.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.final-image img{
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.75);
+}
+
+.final-note{
+  margin-top:40px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+}
+
+.final-heart{
+  margin-top:35px;
+  color:#777;
+  font-size:14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:45px 25px;
+  display:flex;
+  justify-content:space-between;
+  color:#55514e;
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+/* =========================
+   NOTE MODAL
+========================= */
+
+.note-modal{
+  position:fixed;
+  inset:0;
+  z-index:8000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.86);
+  padding:25px;
+}
+
+.note-modal.active{
+  display:flex;
+}
+
+.note{
+  width:min(440px,100%);
+  background:#ded4c8;
+  color:#2c2926;
+  padding:55px 45px;
+  transform:rotate(-1deg);
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+.note-small{
+  font-size:8px;
+  letter-spacing:2px;
+  opacity:.5;
+  margin-bottom:30px;
+}
+
+.note p{
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:24px;
+  line-height:1.7;
+}
+
+.close-note{
+  margin-top:35px;
+  background:none;
+  border:1px solid rgba(0,0,0,.2);
+  padding:10px 18px;
+  cursor:pointer;
+}
+
+/* =========================
+   HIDDEN BUTTON
+========================= */
+
+.hidden-trigger{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:2000;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(0,0,0,.7);
+  color:#666;
+  cursor:pointer;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  section{
+    width:calc(100% - 34px);
+  }
+
+  .section{
+    padding:100px 0;
+  }
+
+  .hero{
+    padding:0 18px 65px;
+  }
+
+  .hero h1{
+    font-size:68px;
+  }
+
+  .statement{
+    min-height:65vh;
+  }
+
+  .statement-text{
+    font-size:40px;
+  }
+
+  .timeline-row{
+    grid-template-columns:1fr;
+    gap:17px;
+    padding:38px 0;
+  }
+
+  .timeline-title{
+    font-size:29px;
+  }
+
+  .letter-grid{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+
+  .letter-heading{
+    position:static;
+  }
+
+  .letter-heading h3{
+    font-size:38px;
+  }
+
+  .letter{
+    padding-left:22px;
+  }
+
+  .letter p{
+    font-size:18px;
+  }
+
+  .archive-head{
+    display:block;
+  }
+
+  .archive-info{
+    text-align:left;
+    margin-top:20px;
+  }
+
+  .gallery{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .photo:nth-child(n){
+    grid-column:span 1;
+    margin-top:0;
+    height:300px;
+  }
+
+  .photo:nth-child(1),
+  .photo:nth-child(4){
+    grid-column:span 2;
+  }
+
+  .photo:nth-child(1){
+    height:450px;
+  }
+
+  .photo:nth-child(4){
+    height:420px;
+  }
+
+  .soundtrack{
+    grid-template-columns:1fr;
+  }
+
+  .sound-left{
+    min-height:500px;
+    padding:35px;
+  }
+
+  .sound-right{
+    height:400px;
+  }
+
+  .counter-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .counter-item:nth-child(2){
+    border-right:0;
+  }
+
+  .counter-item:nth-child(1),
+  .counter-item:nth-child(2){
+    border-bottom:1px solid var(--line);
+  }
+
+  .answers{
+    grid-template-columns:1fr;
+  }
+
+  .answer{
+    min-height:105px;
+  }
+
+  .viewer-modal{
+    padding:20px 8px;
+  }
+
+  .viewer{
+    height:82vh;
+  }
+
+  .viewer img{
+    max-width:88%;
+  }
+
+  .viewer-arrow{
+    width:38px;
+    height:38px;
+  }
+
+  .future{
+    padding:100px 0;
+  }
+
+  .future-letter p{
+    font-size:19px;
+  }
+
+  .final-image{
+    height:440px;
+  }
+
+  footer{
+    flex-direction:column;
+    gap:15px;
+  }
+}
+</style>
+</head>
+
+<body class="locked">
+
+<div class="progress" id="progress"></div>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<div id="intro">
+
+  <div class="intro-inner">
+
+    <div class="intro-label">
+      A PERSONAL ARCHIVE
+    </div>
+
+    <div class="intro-title">
+      For <em>you.</em>
+    </div>
+
+    <div class="intro-copy">
+      A private collection of moments,
+      conversations, memories,
+      and things I don't always know how to say.
+    </div>
+
+    <button class="enter" id="enter">
+      ENTER ARCHIVE
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav class="nav">
+
+  <div class="logo">
+    J × B
+  </div>
+
+  <div class="nav-right">
+
+    <button class="nav-btn" id="musicNav">
+      ♪
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+
+  <div class="hero-image">
+    <img
+      src="att.97vp2zl5u6zg5e1ga2nZvjJr63US-mqfEx8krTg7Dy4.jpeg"
+      alt=""
+    >
+  </div>
+
+  <div class="hero-content reveal">
+
+    <div class="hero-date">
+      SEPTEMBER 04, 2026 · OUR STORY
+    </div>
+
+    <h1>
+      Hi,
+      <em>babyyy.</em>
+    </h1>
+
+    <div class="hero-bottom">
+      <span class="hero-line"></span>
+      <span>SCROLL TO BEGIN</span>
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     STATEMENT
+========================= -->
+
+<section class="section statement">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      01 / BEFORE YOU
+    </div>
+
+    <div class="statement-text">
+      Some people enter your life quietly.
+      <span>
+        And somehow, everything feels different afterward.
+      </span>
+    </div>
+
+    <div class="statement-note">
+      I don't think I knew exactly what was happening
+      when our story started. I just knew that talking
+      to you slowly became something I looked forward to.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TIMELINE
+========================= -->
+
+<section class="section">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      02 / THE TIMELINE
+    </div>
+
+    <div class="big-title">
+      How we got here.
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-row">
+
+        <div class="timeline-date">
+          04.09.2026
+        </div>
+
+        <div>
+          <div class="timeline-title">
+            The beginning.
+          </div>
+
+          <div class="timeline-text">
+            A simple date that became something
+            worth remembering.
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="timeline-row">
+
+        <div class="timeline-date">
+          THEN
+        </div>
+
+        <div>
+          <div class="timeline-title">
+            The conversations.
+          </div>
+
+          <div class="timeline-text">
+            Somewhere between the random talks,
+            jokes, little updates and late conversations,
+            you slowly became part of my everyday life.
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="timeline-row">
+
+        <div class="timeline-date">
+          NOW
+        </div>
+
+        <div>
+          <div class="timeline-title">
+            Still us.
+          </div>
+
+          <div class="timeline-text">
+            Still learning each other.
+            Still making memories.
+            Still choosing to stay.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     LETTER
+========================= -->
+
+<section class="section">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      03 / A LETTER
+    </div>
+
+    <div class="letter-grid">
+
+      <div class="letter-heading">
+
+        <h3>
+          Things I don't<br>
+          always say.
+        </h3>
+
+      </div>
+
+      <div class="letter">
+
+        <p>
+          Dear you,
+        </p>
+
+        <p>
+          I know I don't always have the perfect words.
+          Sometimes I joke around, sometimes I stay quiet,
+          and sometimes I probably make things harder
+          than they need to be.
+        </p>
+
+        <p>
+          But underneath all of that, there is one thing
+          I hope you never have to question:
+          I genuinely care about you.
+        </p>
+
+        <p>
+          I appreciate the little things.
+          The conversations. The random moments.
+          The way you can make an ordinary day feel
+          a little less ordinary.
+        </p>
+
+        <p>
+          I don't need our story to be perfect.
+          I just want it to be real.
+          Something we both choose,
+          especially on the days when choosing is harder.
+        </p>
+
+        <p>
+          Thank you for becoming someone
+          I can call mine.
+        </p>
+
+        <div class="signature">
+          yours, always.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PHOTO ARCHIVE
+========================= -->
+
+<section class="section">
+
+  <div class="reveal">
+
+    <div class="archive-head">
+
+      <div>
+
+        <div class="eyebrow">
+          04 / THE ARCHIVE
+        </div>
+
+        <div class="big-title">
+          Moments worth keeping.
+        </div>
+
+      </div>
+
+      <div class="archive-info">
+        Seven frames.
+        <br>
+        Countless memories.
+        <br>
+        Tap to enter.
+      </div>
+
+    </div>
+
+
+    <div class="gallery">
+
+      <div class="photo" data-index="0">
+        <img src="att.97vp2zl5u6zg5e1ga2nZvjJr63US-mqfEx8krTg7Dy4.jpeg" alt="">
+        <div class="frame">FRAME / 01</div>
+      </div>
+
+      <div class="photo" data-index="1">
+        <img src="att.9oDOCCrwe-68ysLHTxM8x0OFCqNx0unnl6IPjXeGick.webp.jpeg" alt="">
+        <div class="frame">FRAME / 02</div>
+      </div>
+
+      <div class="photo" data-index="2">
+        <img src="att.dxVrpz5CFicrFlhsH4_HBTjqow0Wnvzpxzh6wFa8jng.jpeg" alt="">
+        <div class="frame">FRAME / 03</div>
+      </div>
+
+      <div class="photo" data-index="3">
+        <img src="att.Jr0-cisZdHMb-42ePl7aLX1ohblw6zZwoSdxxarrToc.jpeg" alt="">
+        <div class="frame">FRAME / 04</div>
+      </div>
+
+      <div class="photo" data-index="4">
+        <img src="att.JtDwQAQHdf_SdmXunn3nftLqXULfan0x-lwsBEnxoqs.jpeg" alt="">
+        <div class="frame">FRAME / 05</div>
+      </div>
+
+      <div class="photo" data-index="5">
+        <img src="att.KQBr38IqOa6wXPvkkgj2vBCIfTQhjlWdr7_miZkNv7A.jpeg" alt="">
+        <div class="frame">FRAME / 06</div>
+      </div>
+
+      <div class="photo" data-index="6">
+        <img src="att.mrOSrZs_omicGNRYyw2eOrluHgrZ4JTsEQzY9iCnnhQ.jpeg" alt="">
+        <div class="frame">FRAME / 07</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PHOTO DETAIL
+========================= -->
+
+<section class="section detail">
+
+  <div class="detail-inner reveal">
+
+    <div class="eyebrow">
+      05 / A DETAIL ABOUT YOU
+    </div>
+
+    <div class="detail-number" id="detailNumber">
+      01 / 07
+    </div>
+
+    <div class="detail-text" id="detailText">
+      I notice the little things you probably think I don't notice.
+    </div>
+
+    <button class="detail-next" id="detailNext">
+      ANOTHER DETAIL →
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONVERSATION
+========================= -->
+
+<section class="section">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      06 / OUR CONVERSATIONS
+    </div>
+
+    <div class="big-title">
+      The little things.
+    </div>
+
+    <div class="conversation-wrap">
+
+      <div class="chat">
+
+        <div class="chat-top">
+
+          <div class="chat-dot"></div>
+
+          <div class="chat-name">
+            BABYYY
+          </div>
+
+        </div>
+
+        <div id="chatMessages"></div>
+
+        <div class="chat-controls">
+
+          <div class="chat-counter" id="chatCounter">
+            01 / 04
+          </div>
+
+          <button class="chat-next" id="chatNext">
+            NEXT MEMORY →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SOUNDTRACK
+========================= -->
+
+<section class="section">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      07 / THE SOUNDTRACK
+    </div>
+
+    <div class="soundtrack">
+
+      <div class="sound-left">
+
+        <div class="sound-label">
+          A SONG FOR YOU
+        </div>
+
+        <div class="song">
+          Para<br>
+          <em>luman.</em>
+        </div>
+
+        <div>
+
+          <div class="song-info">
+            Some songs sound different when
+            you have someone specific in mind.
+          </div>
+
+          <button class="play" id="play">
+            ▶
+          </button>
+
+          <div class="visualizer" id="visualizer">
+
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="sound-right">
+
+        <img
+          src="att.JtDwQAQHdf_SdmXunn3nftLqXULfan0x-lwsBEnxoqs.jpeg"
+          alt=""
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     LATE NIGHT
+========================= -->
+
+<div class="late">
+
+  <div class="late-inner reveal">
+
+    <div class="eyebrow">
+      08 / FOR WHEN IT'S LATE
+    </div>
+
+    <div class="late-content">
+
+      <div class="late-title">
+        If you're reading this<br>
+        <em>right now...</em>
+      </div>
+
+      <div class="late-text">
+        Maybe you're tired.
+        Maybe you're overthinking.
+        Maybe you just needed somewhere quiet
+        for a minute.
+      </div>
+
+      <button class="late-button" id="lateButton">
+        READ THIS
+      </button>
+
+      <div class="late-message" id="lateMessage">
+
+        <p>
+          I hope you're okay.
+          And if you're not, that's okay too.
+          You don't always have to pretend
+          that everything is fine.
+          <br><br>
+          Rest when you need to.
+          Take your time.
+          And remember that you don't have
+          to carry everything alone.
+          <br><br>
+          I'm here.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     COUNTER
+========================= -->
+
+<section class="section">
+
+  <div class="counter reveal">
+
+    <div class="eyebrow">
+      09 / OUR TIME
+    </div>
+
+    <div class="big-title">
+      Since the beginning.
+    </div>
+
+    <div class="counter-grid">
+
+      <div class="counter-item">
+        <div class="counter-number" id="days">
+          0
+        </div>
+        <div class="counter-label">
+          DAYS
+        </div>
+      </div>
+
+      <div class="counter-item">
+        <div class="counter-number" id="hours">
+          0
+        </div>
+        <div class="counter-label">
+          HOURS
+        </div>
+      </div>
+
+      <div class="counter-item">
+        <div class="counter-number" id="minutes">
+          0
+        </div>
+        <div class="counter-label">
+          MINUTES
+        </div>
+      </div>
+
+      <div class="counter-item">
+        <div class="counter-number" id="seconds">
+          0
+        </div>
+        <div class="counter-label">
+          SECONDS
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SECRET
+========================= -->
+
+<section class="section secret-section">
+
+  <div class="reveal">
+
+    <div class="eyebrow">
+      10 / PRIVATE
+    </div>
+
+    <div class="big-title">
+      There is one more thing.
+    </div>
+
+    <div class="lock" id="lock">
+      ♧
+    </div>
+
+    <div class="secret-hint">
+      Not everything in this archive<br>
+      is meant to be found immediately.
+    </div>
+
+    <div class="secret-box" id="secretBox">
+
+      <input
+        class="code-input"
+        id="codeInput"
+        type="password"
+        inputmode="numeric"
+        maxlength="8"
+        placeholder="ENTER CODE"
+      >
+
+      <button class="unlock" id="unlock">
+        UNLOCK
+      </button>
+
+      <div class="secret-result" id="secretResult">
+
+        <img
+          src="att.mrOSrZs_omicGNRYyw2eOrluHgrZ4JTsEQzY9iCnnhQ.jpeg"
+          alt=""
+        >
+
+        <p>
+          You found the part I hid on purpose.
+          <br><br>
+          I love that you looked.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FUTURE LETTER
+========================= -->
+
+<div class="future">
+
+  <div class="future-inner reveal">
+
+    <div class="eyebrow">
+      11 / FROM THE FUTURE
+    </div>
+
+    <div class="big-title">
+      A letter we haven't written yet.
+    </div>
+
+    <div class="envelope" id="envelope">
+
+      <div class="envelope-symbol">
+        ✉
+      </div>
+
+      <div class="envelope-label">
+        OPEN WHEN YOU'RE READY
+      </div>
+
+    </div>
+
+    <div class="future-letter" id="futureLetter">
+
+      <div class="future-date">
+        SOME DAY, YEARS FROM NOW
+      </div>
+
+      <p>
+        Hey, you.
+      </p>
+
+      <p>
+        If you're reading this, I hope we're somewhere
+        looking back at the younger versions of ourselves
+        and smiling at how much we still had to learn.
+      </p>
+
+      <p>
+        I hope we remember that it was never about having
+        everything figured out. It was about staying,
+        communicating, growing, and choosing each other
+        through all the changes.
+      </p>
+
+      <p>
+        And if we're still sitting beside each other,
+        I hope I still look at you and think the same thing:
+        I'm glad it was you.
+      </p>
+
+      <p>
+        Take care of us.
+      </p>
+
+      <div class="signature">
+        — from the version of me who still chose you.
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     QUESTION
+========================= -->
+
+<section class="section">
+
+  <div class="question reveal">
+
+    <div class="eyebrow">
+      12 / ONE QUESTION
+    </div>
+
+    <div class="big-title">
+      If you could relive<br>
+      one moment with me...
+    </div>
+
+    <div class="question-sub">
+      There isn't a wrong answer.
+      I just want to know what moment you'd choose.
+    </div>
+
+    <div class="answers">
+
+      <button class="answer" data-answer="first">
+
+        <span>01</span>
+
+        Our first conversations
+
+      </button>
+
+      <button class="answer" data-answer="random">
+
+        <span>02</span>
+
+        One random day together
+
+      </button>
+
+      <button class="answer" data-answer="favorite">
+
+        <span>03</span>
+
+        A moment you never want to forget
+
+      </button>
+
+    </div>
+
+    <div class="answer-result" id="answerResult"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="final">
+
+  <div class="final-inner">
+
+    <div class="final-label">
+      END OF ARCHIVE
+    </div>
+
+    <div class="final-title">
+      The<br>
+      <em>End.</em>
+    </div>
+
+    <div class="final-pause">
+      ...
+    </div>
+
+    <div class="chapter" id="chapter">
+
+      <div class="chapter-text">
+        No.
+      </div>
+
+      <div class="chapter-text">
+        Chapter One.
+      </div>
+
+    </div>
+
+    <div class="final-image" id="finalImage">
+
+      <img
+        src="att.mrOSrZs_omicGNRYyw2eOrluHgrZ4JTsEQzY9iCnnhQ.jpeg"
+        alt=""
+      >
+
+    </div>
+
+    <div class="final-note">
+
+      There's still so much more<br>
+      I want to experience with you.
+
+    </div>
+
+    <div class="final-heart">
+      ♡
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div>
+    PERSONAL ARCHIVE
+  </div>
+
+  <div>
+    J × B · 2026
+  </div>
+
+</footer>
+
+
+<!-- =========================
+     PHOTO VIEWER
+========================= -->
+
+<div class="viewer-modal" id="viewerModal">
+
+  <div class="viewer">
+
+    <button class="viewer-close" id="viewerClose">
+      ×
+    </button>
+
+    <button class="viewer-arrow viewer-prev" id="viewerPrev">
+      ←
+    </button>
+
+    <img id="viewerImage" src="" alt="">
+
+    <button class="viewer-arrow viewer-next" id="viewerNext">
+      →
+    </button>
+
+    <div class="viewer-caption" id="viewerCaption">
+      FRAME / 01
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     HIDDEN NOTE
+========================= -->
+
+<button class="hidden-trigger" id="hiddenTrigger">
+  +
+</button>
+
+<div class="note-modal" id="noteModal">
+
+  <div class="note">
+
+    <div class="note-small">
+      A NOTE YOU WEREN'T SUPPOSED TO FIND
+    </div>
+
+    <p>
+      If you found this,
+      you probably looked twice.
+      <br><br>
+      I like that about you.
+    </p>
+
+    <button class="close-note" id="closeNote">
+      CLOSE
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     AUDIO
+========================= -->
+
+<audio id="music" loop preload="auto">
+  <source
+    src="Adie - Paraluman (Lyrics).mp3"
+    type="audio/mpeg"
+  >
+</audio>
+
+
+<script>
+
+/* =========================================
+   INTRO + MUSIC
+========================================= */
+
+const intro = document.getElementById("intro");
+const enter = document.getElementById("enter");
+
+const music = document.getElementById("music");
+const musicNav = document.getElementById("musicNav");
+const play = document.getElementById("play");
+const visualizer = document.getElementById("visualizer");
+
+let playing = false;
+
+function startMusic(){
+
+  music.play().then(()=>{
+
+    playing = true;
+
+    musicNav.textContent = "Ⅱ";
+    play.textContent = "Ⅱ";
+
+    visualizer.classList.add("playing");
+
+  }).catch(()=>{
+
+    /* Browser autoplay restriction */
+
+  });
+
+}
+
+function stopMusic(){
+
+  music.pause();
+
+  playing = false;
+
+  musicNav.textContent = "♪";
+  play.textContent = "▶";
+
+  visualizer.classList.remove("playing");
+
+}
+
+function toggleMusic(){
+
+  if(playing){
+    stopMusic();
+  }else{
+    startMusic();
+  }
+
+}
+
+enter.addEventListener("click",()=>{
+
+  intro.classList.add("hide");
+  document.body.classList.remove("locked");
+
+  startMusic();
+
+});
+
+musicNav.addEventListener("click",toggleMusic);
+play.addEventListener("click",toggleMusic);
+
+
+/* =========================================
+   SCROLL PROGRESS
+========================================= */
+
+window.addEventListener("scroll",()=>{
+
+  const top = window.scrollY;
+
+  const total =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const percent =
+    total > 0 ? (top / total) * 100 : 0;
+
+  document.getElementById("progress")
+    .style.width = percent + "%";
+
+});
+
+
+/* =========================================
+   REVEAL
+========================================= */
+
+const reveals =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+
+        entry.target.classList.add("visible");
+
+      }
+
+    });
+
+  },{
+    threshold:.12
+  });
+
+reveals.forEach(el=>{
+  revealObserver.observe(el);
+});
+
+
+/* =========================================
+   PHOTO ARCHIVE
+========================================= */
+
+const photos = [
+
+  "att.97vp2zl5u6zg5e1ga2nZvjJr63US-mqfEx8krTg7Dy4.jpeg",
+
+  "att.9oDOCCrwe-68ysLHTxM8x0OFCqNx0unnl6IPjXeGick.webp.jpeg",
+
+  "att.dxVrpz5CFicrFlhsH4_HBTjqow0Wnvzpxzh6wFa8jng.jpeg",
+
+  "att.Jr0-cisZdHMb-42ePl7aLX1ohblw6zZwoSdxxarrToc.jpeg",
+
+  "att.JtDwQAQHdf_SdmXunn3nftLqXULfan0x-lwsBEnxoqs.jpeg",
+
+  "att.KQBr38IqOa6wXPvkkgj2vBCIfTQhjlWdr7_miZkNv7A.jpeg",
+
+  "att.mrOSrZs_omicGNRYyw2eOrluHgrZ4JTsEQzY9iCnnhQ.jpeg"
+
+];
+
+let photoIndex = 0;
+
+const viewerModal =
+  document.getElementById("viewerModal");
+
+const viewerImage =
+  document.getElementById("viewerImage");
+
+const viewerCaption =
+  document.getElementById("viewerCaption");
+
+function updateViewer(){
+
+  viewerImage.src = photos[photoIndex];
+
+  viewerCaption.textContent =
+    "FRAME / " +
+    String(photoIndex + 1).padStart(2,"0");
+
+}
+
+function openViewer(index){
+
+  photoIndex = index;
+
+  updateViewer();
+
+  viewerModal.classList.add("active");
+
+  document.body.classList.add("locked");
+
+}
+
+function closeViewer(){
+
+  viewerModal.classList.remove("active");
+
+  document.body.classList.remove("locked");
+
+}
+
+function nextPhoto(){
+
+  photoIndex =
+    (photoIndex + 1) % photos.length;
+
+  updateViewer();
+
+}
+
+function prevPhoto(){
+
+  photoIndex =
+    (photoIndex - 1 + photos.length)
+    % photos.length;
+
+  updateViewer();
+
+}
+
+document.querySelectorAll(".photo")
+.forEach(photo=>{
+
+  photo.addEventListener("click",()=>{
+
+    openViewer(
+      Number(photo.dataset.index)
+    );
+
+  });
+
+});
+
+document.getElementById("viewerClose")
+.addEventListener("click",closeViewer);
+
+document.getElementById("viewerNext")
+.addEventListener("click",nextPhoto);
+
+document.getElementById("viewerPrev")
+.addEventListener("click",prevPhoto);
+
+viewerModal.addEventListener("click",(e)=>{
+
+  if(e.target === viewerModal){
+    closeViewer();
+  }
+
+});
+
+document.addEventListener("keydown",(e)=>{
+
+  if(!viewerModal.classList.contains("active")){
+    return;
+  }
+
+  if(e.key === "ArrowRight"){
+    nextPhoto();
+  }
+
+  if(e.key === "ArrowLeft"){
+    prevPhoto();
+  }
+
+  if(e.key === "Escape"){
+    closeViewer();
+  }
+
+});
+
+
+/* =========================================
+   DETAIL ABOUT YOU
+========================================= */
+
+const details = [
+
+  "I notice the little things you probably think I don't notice.",
+
+  "I remember the small details you casually mention.",
+
+  "I notice when your mood changes, even when you don't say anything.",
+
+  "I like hearing about the random parts of your day.",
+
+  "I notice the way you make ordinary conversations feel important.",
+
+  "I appreciate the effort you give, even when you think it's small.",
+
+  "I notice how much you mean to me more often than I actually say it."
+
+];
+
+let detailIndex = 0;
+
+const detailText =
+  document.getElementById("detailText");
+
+const detailNumber =
+  document.getElementById("detailNumber");
+
+document.getElementById("detailNext")
+.addEventListener("click",()=>{
+
+  detailIndex =
+    (detailIndex + 1) % details.length;
+
+  detailText.style.opacity = "0";
+
+  setTimeout(()=>{
+
+    detailText.textContent =
+      details[detailIndex];
+
+    detailNumber.textContent =
+      String(detailIndex + 1).padStart(2,"0")
+      + " / 07";
+
+    detailText.style.opacity = "1";
+
+  },250);
+
+});
+
+
+/* =========================================
+   CONVERSATIONS
+========================================= */
+
+const conversations = [
+
+  [
+    ["her","what are you doing?"],
+    ["you","nothing much."],
+    ["her","sure?"],
+    ["you","yeah."],
+    ["her","okayyy."]
+  ],
+
+  [
+    ["you","remember that random conversation?"],
+    ["her","which one?"],
+    ["you","exactly."],
+    ["her","HAHAHA."]
+  ],
+
+  [
+    ["her","have you eaten?"],
+    ["you","not yet."],
+    ["her","go eat first."],
+    ["you","yes boss."]
+  ],
+
+  [
+    ["you","goodnight babyyy."],
+    ["her","goodnighttt."],
+    ["you","sleep well."],
+    ["her","you too."]
+  ]
+
+];
+
+let chatIndex = 0;
+
+const chatMessages =
+  document.getElementById("chatMessages");
+
+const chatCounter =
+  document.getElementById("chatCounter");
+
+function renderChat(){
+
+  chatMessages.innerHTML = "";
+
+  conversations[chatIndex]
+  .forEach(message=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "message " + message[0];
+
+    div.textContent =
+      message[1];
+
+    chatMessages.appendChild(div);
+
+  });
+
+  chatCounter.textContent =
+    String(chatIndex + 1).padStart(2,"0")
+    + " / "
+    + String(conversations.length)
+    .padStart(2,"0");
+
+}
+
+renderChat();
+
+document.getElementById("chatNext")
+.addEventListener("click",()=>{
+
+  chatIndex =
+    (chatIndex + 1) % conversations.length;
+
+  renderChat();
+
+});
+
+
+/* =========================================
+   LATE NIGHT MESSAGE
+========================================= */
+
+document.getElementById("lateButton")
+.addEventListener("click",()=>{
+
+  document.getElementById("lateMessage")
+    .classList.toggle("show");
+
+});
+
+
+/* =========================================
+   LIVE COUNTER
+========================================= */
+
+const startDate =
+  new Date("2026-09-04T00:00:00");
+
+function updateCounter(){
+
+  const now = new Date();
+
+  let diff =
+    now.getTime() -
+    startDate.getTime();
+
+  if(diff < 0){
+    diff = 0;
+  }
+
+  const seconds =
+    Math.floor(diff / 1000);
+
+  const days =
+    Math.floor(seconds / 86400);
+
+  const hours =
+    Math.floor((seconds % 86400) / 3600);
+
+  const minutes =
+    Math.floor((seconds % 3600) / 60);
+
+  const secs =
+    seconds % 60;
+
+  document.getElementById("days")
+    .textContent = days;
+
+  document.getElementById("hours")
+    .textContent =
+    String(hours).padStart(2,"0");
+
+  document.getElementById("minutes")
+    .textContent =
+    String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds")
+    .textContent =
+    String(secs).padStart(2,"0");
+
+}
+
+updateCounter();
+
+setInterval(updateCounter,1000);
+
+
+/* =========================================
+   SECRET
+========================================= */
+
+const lock =
+  document.getElementById("lock");
+
+const secretBox =
+  document.getElementById("secretBox");
+
+const codeInput =
+  document.getElementById("codeInput");
+
+const unlock =
+  document.getElementById("unlock");
+
+const secretResult =
+  document.getElementById("secretResult");
+
+lock.addEventListener("click",()=>{
+
+  secretBox.classList.toggle("show");
+
+  if(secretBox.classList.contains("show")){
+
+    setTimeout(()=>{
+      codeInput.focus();
+    },300);
+
+  }
+
+});
+
+unlock.addEventListener("click",()=>{
+
+  /*
+    SECRET CODE
+    You can change this if you want.
+  */
+
+  if(codeInput.value === "09042026"){
+
+    secretResult.classList.add("show");
+
+  }else{
+
+    codeInput.value = "";
+
+    codeInput.placeholder =
+      "WRONG CODE";
+
+  }
+
+});
+
+codeInput.addEventListener("keydown",(e)=>{
+
+  if(e.key === "Enter"){
+
+    unlock.click();
+
+  }
+
+});
+
+
+/* =========================================
+   FUTURE LETTER
+========================================= */
+
+const envelope =
+  document.getElementById("envelope");
+
+const futureLetter =
+  document.getElementById("futureLetter");
+
+envelope.addEventListener("click",()=>{
+
+  envelope.style.opacity = "0";
+
+  envelope.style.transform =
+    "translateY(-10px)";
+
+  setTimeout(()=>{
+
+    envelope.style.display = "none";
+
+    futureLetter.classList.add("show");
+
+  },400);
+
+});
+
+
+/* =========================================
+   QUESTION
+========================================= */
+
+const responses = {
+
+  first:
+    "Then I'd want us to experience it again slowly — every conversation, every awkward moment, and every little reason we kept talking.",
+
+  random:
+    "I'd choose an ordinary day too. Because sometimes the moments we never planned become the memories we end up keeping.",
+
+  favorite:
+    "Then I hope we never forget what made that moment special. And if we get the chance, I'd happily make another one with you."
+
+};
+
+document.querySelectorAll(".answer")
+.forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const result =
+      document.getElementById("answerResult");
+
+    result.textContent =
+      responses[button.dataset.answer];
+
+    result.classList.add("show");
+
+    result.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+  });
+
+});
+
+
+/* =========================================
+   HIDDEN NOTE
+========================================= */
+
+const hiddenTrigger =
+  document.getElementById("hiddenTrigger");
+
+const noteModal =
+  document.getElementById("noteModal");
+
+hiddenTrigger.addEventListener("click",()=>{
+
+  noteModal.classList.add("active");
+
+});
+
+document.getElementById("closeNote")
+.addEventListener("click",()=>{
+
+  noteModal.classList.remove("active");
+
+});
+
+noteModal.addEventListener("click",(e)=>{
+
+  if(e.target === noteModal){
+
+    noteModal.classList.remove("active");
+
+  }
+
+});
+
+
+/* =========================================
+   FINAL CINEMATIC ENDING
+========================================= */
+
+const finalSection =
+  document.querySelector(".final");
+
+const chapter =
+  document.getElementById("chapter");
+
+const finalImage =
+  document.getElementById("finalImage");
+
+const finalObserver =
+  new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+
+        setTimeout(()=>{
+
+          chapter.classList.add("show");
+
+        },1800);
+
+        setTimeout(()=>{
+
+          finalImage.classList.add("show");
+
+        },3500);
+
+      }
+
+    });
+
+  },{
+    threshold:.35
+  });
+
+finalObserver.observe(finalSection);
+
+
+/* =========================================
+   TOUCH SWIPE
+========================================= */
+
+let touchStart = 0;
+
+viewerImage.addEventListener("touchstart",(e)=>{
+
+  touchStart =
+    e.touches[0].clientX;
+
+});
+
+viewerImage.addEventListener("touchend",(e)=>{
+
+  const touchEnd =
+    e.changedTouches[0].clientX;
+
+  const difference =
+    touchStart - touchEnd;
+
+  if(Math.abs(difference) > 50){
+
+    if(difference > 0){
+      nextPhoto();
+    }else{
+      prevPhoto();
+    }
+
+  }
+
+});
+
+
+/* =========================================
+   IMAGE FALLBACK
+========================================= */
+
+document.querySelectorAll("img")
+.forEach(img=>{
+
+  img.addEventListener("error",()=>{
+
+    img.style.background = "#151515";
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
